@@ -40,4 +40,33 @@ function prepareGallery() {
   }
 }
 
+function insertAfter(newElement, targetElement) {
+  var parent = targetElement.parentNode;
+  if (parent.lastChild === targetElement) {
+    parent.appendChild(newElement);
+  } else {
+    parent.insertBefore(newElement, targetElement.nextSibling);
+  }
+}
+
+function preparePloaceholder() {
+  if (!document.createElement || !document.createTextNode
+    || !document.getElementById || !document.getElementById('gallery')
+  ) {
+    return false;
+  }
+  var placeholder = document.createElement('img');
+  placeholder.setAttribute('id', 'placeholder');
+  placeholder.setAttribute('src', 'images/5.jpg');
+  placeholder.setAttribute('alt', 'image gallery');
+  var description = document.createElement('p');
+  var descText = document.createTextNode('Choose an image');
+  description.setAttribute('id', 'description');
+  description.appendChild(descText);
+  var gallery = document.getElementById('gallery');
+  insertAfter(placeholder, gallery);
+  insertAfter(description, placeholder);
+}
+
+addLoadEvent(preparePloaceholder);
 addLoadEvent(prepareGallery);
